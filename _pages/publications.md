@@ -9,7 +9,10 @@ nav_order: 1
 ---
 <!-- _pages/publications.md -->
 <div class="publications">
+This page is not up to date. Please see a more up to date list on <a href="https://scholar.google.com/citations?user=SmPIO90AAAAJ&hl=en">Google Scholar</a>. <br /><br />
+
 * indicates equal contribution
+
 
 {%- for y in page.years %}
   <h2 class="year">{{y}}</h2>
