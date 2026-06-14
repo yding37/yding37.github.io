@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Manish Dhakal (F24)
+title: Manish Dhakal
 description: Vision-Language Models (VLMs), Transfer Learning, Adapters, Resource Efficient Learning (w/ Raj Sunderraman)
 img: assets/img/manish.jpg
 importance: 5

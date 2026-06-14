@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Anjila Budathoki (F23)
+title: Anjila Budathoki
 description: Machine Learning, Recommendation Systems, Safety and Privacy. 
 img: assets/img/anjila.jpeg
 importance: 2

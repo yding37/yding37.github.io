@@ -7,7 +7,7 @@
     <!-- <div class="card border-0"> -->
       <div class="row g-0 p-1">
         {%- if person.img -%}
-        <div class="card-img col-md-12">
+        <div class="card-img col-md-4">
           <img
             src="{{person.img | relative_url }}"
             class="img-fluid z-depth-1 img-thumbnail"
@@ -21,9 +21,8 @@
         <div class="col-md-12 p-1">
         {%- endif -%}
           <div class="card-body p-1">
-            <h5 class="card-title">{{ person.title }}</h5>
+            <h6 class="card-title mb-1 fw-semibold">{{ person.title }}</h6>
             <p class="card-text">{{ person.description }}</p>
-            
           </div>
         </div>
       </div>

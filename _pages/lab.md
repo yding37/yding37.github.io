@@ -48,7 +48,7 @@ horizontal: true
   <div class="container row g-1">
     {%- for person in sorted_people -%}
     <!-- <div class="row g-1"> -->
-    <div class="float-left col-md-4 justify-content-center">
+    <div class="float-left col-md-6 justify-content-center">
       {% include people_horizontal.html %}
     </div>
     {%- endfor %}

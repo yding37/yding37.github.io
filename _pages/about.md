@@ -18,13 +18,10 @@ social: false  # includes social icons at the bottom of the page
 
 **Yi Ding** \
 Assistant Professor \
-Department of Computer Science and Software Engineering \
-Auburn University <br />
+Department of Industrial and Systems Engineering \ 
+University of Tennessee Knoxville <br />
 
-345 W Magnolia Av, Rm 3101M
-Auburn, AL 36849. <br />
-
-**Email:** <a href="mailto:yiding@auburn.edu">yiding@auburn.edu</a> \
+**Email:** <a href="mailto:yding@utk.edu">yding@utk.edu</a> \
 **LinkedIn:** <a href="https://www.linkedin.com/in/yding37/">https://www.linkedin.com/in/yding37/</a> \
 **Google Scholar:** <a href="https://scholar.google.com/citations?user=SmPIO90AAAAJ&hl=en">Scholar</a>
 
