@@ -20,6 +20,10 @@ icon:  # the emoji used as the favicon (alternatively, provide image name in /as
 url: https://yding37.github.io # the base hostname & protocol for your site
 baseurl:  # the subpath of your site, e.g. /blog/
 last_updated: false # set to true if you want to display last updated in the footer
+
+# Paper reading list backend (Google Apps Script web app /exec URL).
+# See reading-list-setup/SETUP.md. Leave blank to show a "not connected" notice.
+reading_list_api: "https://script.google.com/macros/s/AKfycbxNhea8t0sNFyLZuWmRmo2Co7ojvtYssdnfH5ADB8_dkvdGQIRj8oARYzWHIZRwUSDl/exec"
 impressum_path:  # set to path to include impressum link in the footer, use the same path as permalink in a page, helps to conform with EU GDPR
 
 # -----------------------------------------------------------------------------
@@ -200,6 +204,8 @@ kramdown:
 include: ['_pages']
 exclude:
   - bin
+  - reading-list-setup
+  - Claude outputs
   - Gemfile
   - Gemfile.lock
   - vendor

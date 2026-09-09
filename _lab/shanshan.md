@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Shanshan Wen
-description: Now @ GaTech
+description:
 img: no
 importance: 1
 category: Past

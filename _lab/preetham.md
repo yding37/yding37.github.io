@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Preetham Thelluri
-description: Natural Language Processing, Sentiment Analysis, Chatbots. 
+description:
 img: no
 importance: 1
 category: Past

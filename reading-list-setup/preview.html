@@ -1,0 +1,1323 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reading List — preview</title>
+<style>
+/* Minimal stand-in for the al-folio theme variables. */
+:root{--global-bg-color:#fff;--global-text-color:#000;--global-text-color-light:#828282;
+ --global-theme-color:#2698BA;--global-hover-color:#0076df;--global-divider-color:rgba(0,0,0,.1);
+ --global-card-bg-color:#fff;}
+html[data-theme='dark']{--global-bg-color:#1C1C1D;--global-text-color:#e8e8e8;
+ --global-text-color-light:#b0b0b0;--global-theme-color:#2698BA;--global-hover-color:#2698BA;
+ --global-divider-color:#424246;--global-card-bg-color:#212529;}
+body{margin:0;background:var(--global-bg-color);color:var(--global-text-color);
+ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+ -webkit-font-smoothing:antialiased;}
+.container{max-width:800px;margin:0 auto;padding:28px 20px 80px;}
+.post-title{font-size:2rem;font-weight:300;margin:0 0 6px;}
+.post-description{color:var(--global-text-color-light);font-size:.95rem;margin:0 0 4px;}
+a{color:var(--global-theme-color);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.pv-bar{display:flex;gap:10px;align-items:center;font-size:.75rem;color:var(--global-text-color-light);
+ border:1px dashed var(--global-divider-color);border-radius:6px;padding:8px 12px;margin-bottom:20px;}
+.pv-bar button{font-size:.72rem;padding:4px 10px;border-radius:5px;cursor:pointer;
+ border:1px solid var(--global-divider-color);background:none;color:var(--global-text-color);}
+/* Lab paper reading list — layout and controls. Uses al-folio theme variables. */
+
+/* Lab paper reading list — layout and controls. Uses al-folio theme variables. */
+
+/* Lab paper reading list — layout and controls. Uses al-folio theme variables. */
+
+/* Lab paper reading list — layout and controls. Uses al-folio theme variables. */
+
+/* Lab paper reading list — layout and controls. Uses al-folio theme variables. */
+
+/* Lab paper reading list — layout and controls. Uses al-folio theme variables. */
+
+/* Lab paper reading list — layout and controls. Uses al-folio theme variables. */
+
+/* Lab paper reading list — layout and controls. Uses al-folio theme variables. */
+
+/* Lab paper reading list — layout and controls. Uses al-folio theme variables. */
+
+/* Lab paper reading list — layout and controls. Uses al-folio theme variables. */
+
+/* Lab paper reading list — layout and controls. Uses al-folio theme variables. */
+
+.rl-wrap { margin-top: 1rem; }
+
+/* ---------- toolbar ---------- */
+.rl-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--global-divider-color);
+}
+.rl-sorts { display: flex; gap: 4px; }
+.rl-sort {
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 5px 12px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: none;
+  color: var(--global-text-color-light);
+  cursor: pointer;
+}
+.rl-sort:hover { color: var(--global-theme-color); }
+.rl-sort.is-active {
+  color: var(--global-theme-color);
+  border-color: var(--global-divider-color);
+  background: rgba(38, 152, 186, 0.08);
+}
+.rl-search {
+  flex: 1 1 160px;
+  min-width: 140px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 6px;
+  background: var(--global-bg-color);
+  color: var(--global-text-color);
+}
+.rl-search:focus { outline: none; border-color: var(--global-theme-color); }
+.rl-auth { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+
+.rl-btn {
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--global-theme-color);
+  background: none;
+  color: var(--global-theme-color);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.rl-btn:hover { background: var(--global-theme-color); color: #fff; }
+.rl-btn-solid { background: var(--global-theme-color); color: #fff; }
+.rl-btn-solid:hover { background: var(--global-hover-color); border-color: var(--global-hover-color); }
+.rl-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.rl-btn-link {
+  border: none; background: none; padding: 0;
+  font-size: 0.75rem; color: var(--global-text-color-light);
+  text-decoration: underline; cursor: pointer;
+}
+.rl-btn-link:hover { color: var(--global-theme-color); }
+
+/* ---------- signed-in status ---------- */
+.rl-status { font-size: 0.75rem; color: var(--global-text-color-light); text-align: right; line-height: 1.4; }
+.rl-status strong { color: var(--global-text-color); font-weight: 600; }
+.rl-quota { display: inline-flex; gap: 8px; white-space: nowrap; }
+.rl-quota span { font-variant-numeric: tabular-nums; }
+
+/* ---------- contributor tally ---------- */
+.rl-tally {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  margin: -4px 0 18px;
+  font-size: 0.75rem;
+  color: var(--global-text-color-light);
+}
+.rl-tally[hidden] { display: none; }
+.rl-tally-label { font-weight: 600; letter-spacing: 0.02em; }
+.rl-tally-label::after { content: ':'; }
+.rl-tally-item { display: inline-flex; align-items: baseline; gap: 5px; }
+.rl-tally-name { color: var(--global-text-color); }
+.rl-tally-count {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--global-theme-color);
+}
+
+/* ---------- list ---------- */
+.rl-list { list-style: none; padding: 0; margin: 0; }
+.rl-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--global-divider-color);
+}
+.rl-item:last-child { border-bottom: none; }
+
+.rl-rank {
+  width: 22px;
+  flex: 0 0 22px;
+  padding-top: 2px;
+  text-align: right;
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--global-text-color-light);
+  font-variant-numeric: tabular-nums;
+}
+
+.rl-votes {
+  flex: 0 0 38px;
+  width: 38px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding-top: 1px;
+}
+.rl-arrow {
+  border: none;
+  background: none;
+  padding: 0;
+  line-height: 1;
+  width: 26px;
+  height: 20px;
+  border-radius: 4px;
+  color: var(--global-text-color-light);
+  opacity: 0.65;
+  cursor: pointer;
+}
+.rl-arrow svg { width: 16px; height: 16px; fill: currentColor; display: block; margin: 0 auto; }
+.rl-arrow:hover:not(:disabled) { opacity: 1; background: var(--global-divider-color); }
+.rl-arrow:disabled { cursor: default; opacity: 0.35; }
+.rl-arrow.is-on { opacity: 1; }
+.rl-up.is-on { color: #ff4500; }
+.rl-down.is-on { color: #7193ff; }
+.rl-score {
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--global-text-color);
+}
+.rl-score.is-up { color: #ff4500; }
+.rl-score.is-down { color: #7193ff; }
+
+.rl-mine {
+  margin-top: 1px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+.rl-mine.is-up { color: #ff4500; background: rgba(255, 69, 0, 0.12); }
+.rl-mine.is-down { color: #7193ff; background: rgba(113, 147, 255, 0.14); }
+
+.rl-body { flex: 1 1 auto; min-width: 0; }
+.rl-title { font-size: 1rem; font-weight: 500; line-height: 1.35; margin: 0 0 3px; }
+.rl-title a { color: var(--global-text-color); }
+.rl-title a:hover { color: var(--global-theme-color); text-decoration: none; }
+.rl-title .rl-domain { font-size: 0.7rem; font-weight: 400; color: var(--global-text-color-light); margin-left: 6px; }
+.rl-meta { font-size: 0.75rem; color: var(--global-text-color-light); margin-bottom: 6px; }
+.rl-meta .rl-venue { font-weight: 600; color: var(--global-theme-color); }
+.rl-summary { font-size: 0.85rem; line-height: 1.55; margin: 0 0 6px; color: var(--global-text-color); }
+.rl-summary.is-clamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 2px;
+}
+.rl-more {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0 0 6px;
+  font-family: inherit;
+  font-size: 0.75rem;
+  color: var(--global-theme-color);
+  cursor: pointer;
+}
+.rl-more:hover { text-decoration: underline; }
+.rl-focus { display: flex; flex-wrap: wrap; gap: 5px; }
+.rl-tag {
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  text-transform: lowercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--global-divider-color);
+  color: var(--global-text-color-light);
+}
+
+/* ---------- read / unread ---------- */
+.rl-check {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  margin-top: 1px;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 50%;
+  background: none;
+  color: var(--global-text-color-light);
+  opacity: 0.55;
+  cursor: pointer;
+}
+.rl-check svg { width: 15px; height: 15px; fill: currentColor; display: block; margin: 0 auto; }
+.rl-check:hover:not(:disabled) { opacity: 1; border-color: #00ab37; color: #00ab37; }
+.rl-check:disabled { cursor: default; opacity: 0.3; }
+.rl-check.is-on {
+  opacity: 1;
+  color: #fff;
+  background: #00ab37;
+  border-color: #00ab37;
+}
+.rl-check.is-on:hover { background: none; color: #00ab37; }
+
+.rl-item.is-read .rl-title a { color: var(--global-text-color-light); }
+.rl-item.is-read .rl-summary,
+.rl-item.is-read .rl-focus { opacity: 0.75; }
+.rl-read-flag {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #00ab37;
+}
+
+.rl-section { padding: 16px 0 4px; border-top: 1px solid var(--global-divider-color); }
+.rl-section:first-child { border-top: none; }
+.rl-section-toggle {
+  border: none;
+  background: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--global-text-color-light);
+  cursor: pointer;
+}
+.rl-section-toggle:hover { color: var(--global-theme-color); }
+.rl-caret { display: inline-block; transition: transform 0.15s ease; }
+.rl-caret.is-open { transform: rotate(90deg); }
+
+.rl-empty, .rl-loading {
+  padding: 32px 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--global-text-color-light);
+}
+.rl-notice {
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  border: 1px solid var(--global-divider-color);
+  background: var(--global-card-bg-color);
+}
+.rl-notice.is-error { border-color: #ff3636; color: #ff3636; }
+.rl-notice.is-ok { border-color: #00ab37; color: #00ab37; }
+
+/* ---------- modal ---------- */
+.rl-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 8vh 16px 16px;
+  background: rgba(0, 0, 0, 0.55);
+  overflow-y: auto;
+}
+.rl-modal[hidden] { display: none; }
+.rl-modal-card {
+  width: 100%;
+  max-width: 460px;
+  background: var(--global-bg-color);
+  color: var(--global-text-color);
+  border: 1px solid var(--global-divider-color);
+  border-radius: 8px;
+  padding: 22px 24px 24px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+.rl-modal-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; }
+.rl-modal-head h3 { font-size: 1.15rem; font-weight: 500; margin: 0; }
+.rl-close { border: none; background: none; font-size: 1.5rem; line-height: 1; color: var(--global-text-color-light); cursor: pointer; }
+.rl-close:hover { color: var(--global-theme-color); }
+.rl-modal-sub { font-size: 0.78rem; color: var(--global-text-color-light); margin-bottom: 16px; }
+
+.rl-field { margin-bottom: 12px; }
+.rl-field label { display: block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--global-text-color-light); margin-bottom: 4px; }
+.rl-field input, .rl-field textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.88rem;
+  padding: 7px 10px;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 6px;
+  background: var(--global-bg-color);
+  color: var(--global-text-color);
+}
+.rl-field input:focus, .rl-field textarea:focus { outline: none; border-color: var(--global-theme-color); }
+.rl-field textarea { resize: vertical; min-height: 74px; line-height: 1.5; }
+.rl-field .rl-hint { font-size: 0.7rem; color: var(--global-text-color-light); margin-top: 3px; text-transform: none; letter-spacing: 0; font-weight: 400; }
+.rl-lookup { display: flex; gap: 8px; }
+.rl-lookup input { flex: 1 1 auto; min-width: 0; }
+.rl-lookup .rl-btn { flex: 0 0 auto; }
+
+.rl-row { display: flex; gap: 12px; }
+.rl-row .rl-field { flex: 1 1 0; }
+.rl-modal-actions { display: flex; align-items: center; gap: 10px; margin-top: 18px; }
+.rl-modal-actions .rl-spacer { margin-left: auto; }
+.rl-msg { font-size: 0.78rem; min-height: 1.1em; margin-top: 10px; }
+.rl-msg.is-error { color: #ff3636; }
+.rl-msg.is-ok { color: #00ab37; }
+
+@media (max-width: 576px) {
+  .rl-rank { display: none; }
+  .rl-auth { margin-left: 0; width: 100%; justify-content: space-between; }
+  .rl-row { flex-direction: column; gap: 0; }
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="post-title">Reading List</h1>
+  <p class="post-description">Papers the lab is reading, ranked by lab votes. Anyone can browse; lab members sign in to vote and to add papers.</p>
+  <div class="pv-bar">
+    <span><strong>Preview</strong> — sample data, nothing is saved. Sign in with any name and passcode <code>demo</code>.</span>
+    <button type="button" onclick="var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';">Toggle dark mode</button>
+  </div>
+<div class="rl-wrap">
+
+  <div class="rl-toolbar">
+    <div class="rl-sorts">
+      <button type="button" class="rl-sort is-active" data-sort="top">Top</button>
+      <button type="button" class="rl-sort" data-sort="new">New</button>
+    </div>
+    <input type="search" id="rl-search" class="rl-search" placeholder="Search title, venue, topic&hellip;" aria-label="Search papers">
+    <div class="rl-auth" id="rl-auth"></div>
+  </div>
+
+  <div class="rl-tally" id="rl-tally" hidden></div>
+
+  <div class="rl-notice" id="rl-notice" hidden></div>
+
+  <ul class="rl-list" id="rl-list">
+    <li class="rl-loading">Loading papers&hellip;</li>
+  </ul>
+
+</div>
+
+<!-- Sign in -->
+<div class="rl-modal" id="rl-login-modal" role="dialog" aria-modal="true" aria-labelledby="rl-login-title" hidden>
+  <div class="rl-modal-card">
+    <div class="rl-modal-head">
+      <h3 id="rl-login-title">Lab member sign in</h3>
+      <button type="button" class="rl-close" data-rl-close="rl-login-modal" aria-label="Close">&times;</button>
+    </div>
+    <p class="rl-modal-sub">Your first name and the passcode Yi gave you. Browsing the list needs no sign in.</p>
+    <form id="rl-login-form">
+      <div class="rl-field">
+        <label for="rl-login-name">Name</label>
+        <input type="text" id="rl-login-name" autocomplete="username" placeholder="First name" required>
+      </div>
+      <div class="rl-field">
+        <label for="rl-login-passcode">Passcode</label>
+        <input type="password" id="rl-login-passcode" autocomplete="current-password" required>
+      </div>
+      <div class="rl-modal-actions">
+        <button type="submit" class="rl-btn rl-btn-solid" id="rl-login-submit">Sign in</button>
+        <button type="button" class="rl-btn-link rl-spacer" data-rl-close="rl-login-modal">Cancel</button>
+      </div>
+      <div class="rl-msg" id="rl-login-msg"></div>
+    </form>
+  </div>
+</div>
+
+<!-- Add a paper -->
+<div class="rl-modal" id="rl-submit-modal" role="dialog" aria-modal="true" aria-labelledby="rl-submit-title" hidden>
+  <div class="rl-modal-card">
+    <div class="rl-modal-head">
+      <h3 id="rl-submit-title">Add a paper</h3>
+      <button type="button" class="rl-close" data-rl-close="rl-submit-modal" aria-label="Close">&times;</button>
+    </div>
+    <p class="rl-modal-sub" id="rl-submit-quota"></p>
+    <form id="rl-submit-form">
+      <div class="rl-field">
+        <label for="rl-f-link">Link</label>
+        <div class="rl-lookup">
+          <input type="url" id="rl-f-link" placeholder="https://arxiv.org/abs/2601.00042" autocomplete="off">
+          <button type="button" class="rl-btn" id="rl-lookup-btn">Look up</button>
+        </div>
+        <div class="rl-hint">An arXiv, DOI or publisher link. The rest is filled in for you where possible.</div>
+      </div>
+
+      <div id="rl-details" hidden>
+        <div class="rl-field">
+          <label for="rl-f-title">Title</label>
+          <input type="text" id="rl-f-title" required>
+        </div>
+        <div class="rl-row">
+          <div class="rl-field">
+            <label for="rl-f-venue">Venue</label>
+            <input type="text" id="rl-f-venue" placeholder="NeurIPS, arXiv, TPAMI&hellip;">
+          </div>
+          <div class="rl-field">
+            <label for="rl-f-year">Year</label>
+            <input type="text" id="rl-f-year" inputmode="numeric" placeholder="2026">
+          </div>
+        </div>
+        <div class="rl-field">
+          <label for="rl-f-summary">Abstract</label>
+          <textarea id="rl-f-summary" rows="7" placeholder="Pasted automatically when it can be found."></textarea>
+        </div>
+      </div>
+
+      <div class="rl-modal-actions">
+        <button type="submit" class="rl-btn rl-btn-solid" id="rl-submit-btn" hidden>Post to list</button>
+        <button type="button" class="rl-btn-link" id="rl-manual">Skip lookup and type it in</button>
+        <button type="button" class="rl-btn-link rl-spacer" data-rl-close="rl-submit-modal">Cancel</button>
+      </div>
+      <div class="rl-msg" id="rl-submit-msg"></div>
+    </form>
+  </div>
+</div>
+</div>
+<script>
+
+/* ---- preview harness: fakes the Apps Script backend, in-memory only ---- */
+var PAPERS = [
+ {id:'p1',title:'Delay-Aware State Space Models for Long-Horizon Sensor Fusion',link:'https://arxiv.org/abs/2504.01234',venue:'NeurIPS',year:'2026',
+  summary:'Extends structured state space models to inputs that arrive with unknown, time-varying lags by learning the delay kernel jointly with the transition matrix. On three multimodal benchmarks it recovers 8-12 points of accuracy that standard S4 loses once sensor streams desynchronize, and it stays stable at 10k-step horizons.',
+  technical_focus:'state space models, multimodal fusion, time series',submitted_by:'Yi Ding',submitted_at:new Date(Date.now()-6*36e5).toISOString(),up:5,down:0,score:5,my_weight:0},
+ {id:'p2',title:'Distilling Vision-Language Models Without a Teacher Forward Pass',link:'https://openaccess.thecvf.com/paper.html',venue:'CVPR',year:'2026',
+  summary:'Caches teacher logits once and reconstructs the full soft-target distribution from a low-rank sketch, cutting distillation cost by 40x. The student matches full-teacher distillation within 0.6 points on ImageNet and VQAv2.',
+  technical_focus:'knowledge distillation, vision-language, efficiency',submitted_by:'Madeeha',submitted_at:new Date(Date.now()-2*864e5).toISOString(),up:4,down:1,score:3,my_weight:0},
+ {id:'p3',title:'Neural Operators for PDE-Constrained Optimization Under Uncertainty',link:'https://jmlr.org/papers/v27/example.html',venue:'JMLR',year:'2025',
+  summary:'Replaces the inner PDE solve in a stochastic optimization loop with a Fourier neural operator and derives an error bound linking operator accuracy to optimality gap. Solves a 3D thermal design problem 200x faster than the adjoint baseline.',
+  technical_focus:'neural operators, PINNs, optimization',submitted_by:'Preetham',submitted_at:new Date(Date.now()-5*864e5).toISOString(),up:3,down:0,score:3,my_weight:0},
+ {id:'p4',title:'A Benchmark for Instruction Following in Embodied Agents',link:'https://arxiv.org/abs/2503.09876',venue:'arXiv',year:'2026',
+  summary:'2,400 household tasks paired with natural-language instructions that contain deliberate ambiguity. Frontier models score 71% on unambiguous tasks but 24% when clarification is required, showing agents rarely ask.',
+  technical_focus:'embodied AI, benchmarking, LLM agents',submitted_by:'Manish',submitted_at:new Date(Date.now()-9*864e5).toISOString(),up:2,down:2,score:0,my_weight:0,
+  read:true,read_at:new Date(Date.now()-4*864e5).toISOString(),read_by:'Manish'},
+ {id:'p5',title:'Column Generation with Learned Pricing Heuristics',link:'https://pubsonline.informs.org/example',venue:'Operations Research',year:'2025',
+  summary:'Trains a GNN to propose promising columns in the pricing subproblem, keeping exact pricing only as a fallback certificate. Cuts crew-scheduling solve time by 3.4x with no loss of optimality guarantees.',
+  technical_focus:'column generation, learning to optimize, integer programming',submitted_by:'Yi Ding',submitted_at:new Date(Date.now()-14*864e5).toISOString(),up:2,down:1,score:1,my_weight:0}
+];
+// Two upvotes stacked on p2 and one down on p4, so the counters start at 1 and 2.
+var ME = {member:'Yi Ding',week:'2026-09-07',upvotes_left:1,upvotes_total:3,
+          downvotes_left:2,downvotes_total:3,submissions_left:8,submissions_total:10};
+var MY = {p2: 2, p4: -1};   // this week's signed allocations; earlier weeks are anonymous
+var LOCK = {fails:0, until:0};
+
+function mockRoute(p, done) {
+  setTimeout(function () {
+    if (p.action === 'list') {
+      var since = Date.now() - 30*864e5, counts = {};
+      PAPERS.forEach(function (x) {
+        var at = Date.parse(x.submitted_at);
+        if (x.submitted_by && at >= since) counts[x.submitted_by] = (counts[x.submitted_by]||0) + 1;
+      });
+      var contributors = Object.keys(counts).map(function (n) { return {name:n, count:counts[n]}; })
+        .sort(function (a,b) { return b.count - a.count || (a.name < b.name ? -1 : 1); });
+      return done({ok:true, contributors:contributors, contributor_window_days:30,
+        papers:PAPERS.map(function(x){var c={};for(var k in x)c[k]=x[k];delete c.submitted_by;c.my_weight=0;return c;})});
+    }
+    if (p.action === 'me')   return done({ok:true, member:ME.member, my_weights:MY, me:ME});
+    if (p.action === 'login') {
+      if (LOCK.until && LOCK.until > Date.now()) {
+        return done({ok:false, locked:true, error:'Too many wrong passcodes. This account is locked for another ' +
+          Math.ceil((LOCK.until - Date.now())/60000) + ' minutes. Ask Yi if you need it cleared sooner.'});
+      }
+      if (String(p.passcode) !== 'demo') {
+        LOCK.fails++;
+        if (LOCK.fails >= 3) {
+          LOCK.fails = 0; LOCK.until = Date.now() + 15*60000;
+          return done({ok:false, locked:true, error:'Too many wrong passcodes. This account is locked for 15 minutes.'});
+        }
+        var left = 3 - LOCK.fails;
+        return done({ok:false, attempts_left:left,
+          error:'Wrong passcode. ' + left + (left === 1 ? ' attempt' : ' attempts') +
+                ' left before this account locks for 15 minutes. (In this preview the passcode is "demo".)'});
+      }
+      LOCK.fails = 0; LOCK.until = 0;
+      return done({ok:true, token:'preview-token', member:'Yi Ding', me:ME});
+    }
+    if (p.action === 'vote') {
+      var paper = null;
+      for (var i=0;i<PAPERS.length;i++) if (PAPERS[i].id===p.paper_id) paper=PAPERS[i];
+      var held = MY[p.paper_id] || 0;
+      var next = held + (p.direction === 'up' ? 1 : -1);
+      // Budget consumed by this member's other papers.
+      var otherUp = 0, otherDown = 0;
+      for (var k in MY) {
+        if (k === p.paper_id) continue;
+        if (MY[k] > 0) otherUp += MY[k]; else otherDown += -MY[k];
+      }
+      if (otherUp + Math.max(next,0) > ME.upvotes_total)
+        return done({ok:false, error:'You have used all ' + ME.upvotes_total + ' upvotes for this week.', me:ME});
+      if (otherDown + Math.max(-next,0) > ME.downvotes_total)
+        return done({ok:false, error:'You have used all ' + ME.downvotes_total + ' downvotes for this week.', me:ME});
+
+      paper.up += (Math.max(next,0) - Math.max(held,0));
+      paper.down += (Math.max(-next,0) - Math.max(-held,0));
+      paper.score = paper.up - paper.down;
+      if (next === 0) delete MY[p.paper_id]; else MY[p.paper_id] = next;
+      ME.upvotes_left = ME.upvotes_total - (otherUp + Math.max(next,0));
+      ME.downvotes_left = ME.downvotes_total - (otherDown + Math.max(-next,0));
+      return done({ok:true, paper_id:paper.id, up:paper.up, down:paper.down,
+                   score:paper.score, my_weight:next, me:ME});
+    }
+    if (p.action === 'mark') {
+      for (var i = 0; i < PAPERS.length; i++) {
+        if (PAPERS[i].id === p.paper_id) {
+          PAPERS[i].read = p.read;
+          PAPERS[i].read_at = p.read ? new Date().toISOString() : '';
+          PAPERS[i].read_by = p.read ? ME.member : '';
+          return done({ok:true, paper_id:p.paper_id, read:p.read,
+                       read_at:PAPERS[i].read_at, read_by:PAPERS[i].read_by});
+        }
+      }
+      return done({ok:false, error:'That paper is no longer on the list.'});
+    }
+    if (p.action === 'lookup') {
+      if (!/arxiv|doi|openreview/i.test(p.link || '')) {
+        return done({ok:false, link:p.link, error:'Could not read that page. Fill the fields in by hand.'});
+      }
+      return done({ok:true, link:p.link, source:'arXiv',
+        title:'Attention Is All You Need',
+        venue:'arXiv', year:'2017',
+        abstract:'The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring significantly less time to train.'});
+    }
+    if (p.action === 'submit') {
+      if (ME.submissions_left <= 0) return done({ok:false, error:'No submissions left this week.', me:ME});
+      ME.submissions_left--;
+      PAPERS.push({id:'n'+Date.now(), title:p.title, link:p.link, venue:p.venue, year:p.year,
+                   summary:p.summary, technical_focus:p.technical_focus, submitted_by:ME.member,
+                   submitted_at:new Date().toISOString(), up:0, down:0, score:0, my_weight:0});
+      return done({ok:true, me:ME});
+    }
+    done({ok:false, error:'Unknown action'});
+  }, 220);
+}
+
+// Intercept the JSONP <script src> the real code uses.
+var srcDesc = Object.getOwnPropertyDescriptor(HTMLScriptElement.prototype, 'src');
+Object.defineProperty(HTMLScriptElement.prototype, 'src', {
+  configurable: true,
+  get: function () { return srcDesc.get.call(this); },
+  set: function (v) {
+    if (String(v).indexOf('preview://') === 0) {
+      var q = String(v).split('?')[1] || '', params = {};
+      q.split('&').forEach(function (kv) {
+        var a = kv.split('='); params[decodeURIComponent(a[0])] = decodeURIComponent(a[1] || '');
+      });
+      mockRoute(params, function (data) { if (window[params.callback]) window[params.callback](data); });
+      return;
+    }
+    srcDesc.set.call(this, v);
+  }
+});
+
+// Intercept the POST the real code uses.
+window.fetch = function (url, opts) {
+  var payload = JSON.parse(opts.body);
+  return new Promise(function (resolve) {
+    mockRoute(payload, function (data) { resolve({ text: function () { return Promise.resolve(JSON.stringify(data)); } }); });
+  });
+};
+
+window.READING_LIST_CONFIG = { api: 'preview://mock' };
+
+</script>
+<script>
+/* Lab paper reading list.
+   Backend: a Google Apps Script web app over a Google Sheet.
+   Public read is open; voting and submitting need a lab passcode. */
+(function () {
+  'use strict';
+
+  var cfg = window.READING_LIST_CONFIG || {};
+  var API = (cfg.api || '').trim();
+  var STORE = 'rl.session.v1';
+
+  var state = {
+    papers: [],
+    contributors: [],
+    contributorDays: 30,
+    showRead: false,
+    sort: 'top',
+    query: '',
+    session: null,   // { token: '', member: '', me: {...} }
+    busy: {}
+  };
+
+  var el = {};
+
+  /* ------------------------------ boot ---------------------------------- */
+
+  document.addEventListener('DOMContentLoaded', function () {
+    el.list = document.getElementById('rl-list');
+    el.notice = document.getElementById('rl-notice');
+    el.tally = document.getElementById('rl-tally');
+    el.auth = document.getElementById('rl-auth');
+    el.search = document.getElementById('rl-search');
+    el.sorts = document.querySelectorAll('.rl-sort');
+    el.loginModal = document.getElementById('rl-login-modal');
+    el.submitModal = document.getElementById('rl-submit-modal');
+    el.loginForm = document.getElementById('rl-login-form');
+    el.submitForm = document.getElementById('rl-submit-form');
+    el.loginMsg = document.getElementById('rl-login-msg');
+    el.submitMsg = document.getElementById('rl-submit-msg');
+    el.submitQuota = document.getElementById('rl-submit-quota');
+    el.details = document.getElementById('rl-details');
+    el.lookupBtn = document.getElementById('rl-lookup-btn');
+    el.manualBtn = document.getElementById('rl-manual');
+    el.submitBtn = document.getElementById('rl-submit-btn');
+    el.link = document.getElementById('rl-f-link');
+    if (!el.list) return;
+
+    state.session = readSession();
+
+    for (var i = 0; i < el.sorts.length; i++) {
+      el.sorts[i].addEventListener('click', onSort);
+    }
+    if (el.search) el.search.addEventListener('input', onSearch);
+    if (el.loginForm) el.loginForm.addEventListener('submit', onLogin);
+    if (el.submitForm) el.submitForm.addEventListener('submit', onSubmit);
+    if (el.lookupBtn) el.lookupBtn.addEventListener('click', onLookup);
+    if (el.manualBtn) el.manualBtn.addEventListener('click', function () { showDetails(true); });
+    if (el.link) el.link.addEventListener('keydown', function (ev) {
+      // Enter in the link box means "look this up", not "post".
+      if (ev.key === 'Enter') { ev.preventDefault(); onLookup(); }
+    });
+
+    var closers = document.querySelectorAll('[data-rl-close]');
+    for (var c = 0; c < closers.length; c++) {
+      closers[c].addEventListener('click', function (ev) {
+        closeModal(document.getElementById(ev.currentTarget.getAttribute('data-rl-close')));
+      });
+    }
+    [el.loginModal, el.submitModal].forEach(function (m) {
+      if (!m) return;
+      m.addEventListener('mousedown', function (ev) { if (ev.target === m) closeModal(m); });
+    });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape') { closeModal(el.loginModal); closeModal(el.submitModal); }
+    });
+
+    renderAuth();
+
+    if (!API) {
+      el.list.innerHTML = '';
+      notice('The reading list backend is not connected yet. Set <code>reading_list_api</code> in <code>_config.yml</code> to the Apps Script web app URL.', 'error');
+      return;
+    }
+    load();
+  });
+
+  /* ---------------------------- transport ------------------------------- */
+
+  // GET over JSONP: no CORS involved, so the public list always renders.
+  function apiGet(params, done) {
+    var name = 'rlcb' + Date.now() + Math.floor(Math.random() * 10000);
+    var script = document.createElement('script');
+    var timer = setTimeout(function () { cleanup(); done({ ok: false, error: 'The backend did not respond.' }); }, 20000);
+
+    function cleanup() {
+      clearTimeout(timer);
+      try { delete window[name]; } catch (e) { window[name] = undefined; }
+      if (script.parentNode) script.parentNode.removeChild(script);
+    }
+
+    window[name] = function (data) { cleanup(); done(data); };
+
+    var qs = ['callback=' + encodeURIComponent(name)];
+    for (var k in params) {
+      if (Object.prototype.hasOwnProperty.call(params, k) && params[k] != null && params[k] !== '') {
+        qs.push(encodeURIComponent(k) + '=' + encodeURIComponent(params[k]));
+      }
+    }
+    script.src = API + (API.indexOf('?') === -1 ? '?' : '&') + qs.join('&');
+    script.onerror = function () { cleanup(); done({ ok: false, error: 'Could not reach the backend.' }); };
+    document.body.appendChild(script);
+  }
+
+  // POST as text/plain so the browser sends no preflight request.
+  function apiPost(payload, done) {
+    if (state.session && state.session.token) payload.token = state.session.token;
+    fetch(API, {
+      method: 'POST',
+      redirect: 'follow',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    }).then(function (res) {
+      return res.text();
+    }).then(function (text) {
+      var data;
+      try { data = JSON.parse(text); }
+      catch (e) { data = { ok: false, error: 'Unexpected response from the backend.' }; }
+      done(data);
+    })['catch'](function () {
+      done({ ok: false, error: 'Could not reach the backend. Check your connection.' });
+    });
+  }
+
+  /* ------------------------------ data ---------------------------------- */
+
+  function load() {
+    el.list.innerHTML = '<li class="rl-loading">Loading papers&hellip;</li>';
+    apiGet({ action: 'list' }, function (data) {
+      if (!data || !data.ok) {
+        el.list.innerHTML = '';
+        notice((data && data.error) || 'Could not load the reading list.', 'error');
+        return;
+      }
+      state.papers = data.papers || [];
+      state.contributors = data.contributors || [];
+      if (data.contributor_window_days) state.contributorDays = data.contributor_window_days;
+      renderTally();
+      render();
+      refreshMe();
+    });
+  }
+
+  // The session token is only ever sent in a POST body, never in a URL.
+  function refreshMe() {
+    if (!state.session || !state.session.token) return;
+    apiPost({ action: 'me' }, function (data) {
+      if (!data || !data.ok) {
+        if (data && data.expired) { signOut(); openLogin('Your session expired. Sign in again.'); }
+        return;
+      }
+      var mine = data.my_weights || {};
+      for (var i = 0; i < state.papers.length; i++) {
+        state.papers[i].my_weight = mine[state.papers[i].id] || 0;
+      }
+      state.session.me = data.me;
+      writeSession(state.session);
+      renderAuth();
+      render();
+    });
+  }
+
+  /* ----------------------------- rendering ------------------------------ */
+
+  function visiblePapers() {
+    var q = state.query.toLowerCase();
+    var rows = state.papers.filter(function (p) {
+      if (!q) return true;
+      return (p.title + ' ' + p.venue + ' ' + p.summary + ' ' +
+              p.technical_focus).toLowerCase().indexOf(q) !== -1;
+    });
+    rows.sort(function (a, b) {
+      if (state.sort === 'new') return stamp(b) - stamp(a);
+      if (b.score !== a.score) return b.score - a.score;
+      if (b.up !== a.up) return b.up - a.up;
+      return stamp(b) - stamp(a);
+    });
+    return rows;
+  }
+
+  function stamp(p) {
+    var t = Date.parse(p.submitted_at || '');
+    return isNaN(t) ? 0 : t;
+  }
+
+  function render() {
+    var rows = visiblePapers();
+    var unread = [], read = [];
+    for (var r = 0; r < rows.length; r++) (rows[r].read ? read : unread).push(rows[r]);
+    read.sort(function (a, b) { return (Date.parse(b.read_at) || 0) - (Date.parse(a.read_at) || 0); });
+
+    if (!rows.length) {
+      el.list.innerHTML = '<li class="rl-empty">' +
+        (state.query ? 'No papers match &ldquo;' + esc(state.query) + '&rdquo;.'
+                     : 'No papers on the list yet. Lab members can add the first one.') +
+        '</li>';
+      return;
+    }
+
+    var html = '';
+    if (unread.length) {
+      for (var i = 0; i < unread.length; i++) html += itemHtml(unread[i], i + 1);
+    } else {
+      html += '<li class="rl-empty">Everything on the list has been read.</li>';
+    }
+
+    if (read.length) {
+      html += '<li class="rl-section">' +
+                '<button type="button" class="rl-section-toggle" id="rl-read-toggle">' +
+                  '<span class="rl-caret' + (state.showRead ? ' is-open' : '') + '">&#9656;</span> ' +
+                  'Read (' + read.length + ')' +
+                '</button>' +
+              '</li>';
+      if (state.showRead) {
+        for (var j = 0; j < read.length; j++) html += itemHtml(read[j], null);
+      }
+    }
+    el.list.innerHTML = html;
+
+    var readToggle = document.getElementById('rl-read-toggle');
+    if (readToggle) readToggle.addEventListener('click', function () {
+      state.showRead = !state.showRead;
+      render();
+    });
+
+    var checks = el.list.querySelectorAll('.rl-check');
+    for (var c = 0; c < checks.length; c++) checks[c].addEventListener('click', onMarkRead);
+
+    var arrows = el.list.querySelectorAll('.rl-arrow');
+    for (var a = 0; a < arrows.length; a++) arrows[a].addEventListener('click', onVote);
+
+    // A four-line clamp only needs a toggle when the text actually exceeds it,
+    // which depends on the rendered width, so measure rather than guess.
+    var mores = el.list.querySelectorAll('.rl-more');
+    for (var m = 0; m < mores.length; m++) {
+      var btn = mores[m];
+      var para = btn.previousElementSibling;
+      if (para.scrollHeight > para.clientHeight + 2) {
+        btn.hidden = false;
+        btn.addEventListener('click', onToggleSummary);
+      } else {
+        para.classList.remove('is-clamped');
+      }
+    }
+  }
+
+  function onToggleSummary(ev) {
+    var btn = ev.currentTarget;
+    var para = btn.previousElementSibling;
+    var clamped = para.classList.toggle('is-clamped');
+    btn.textContent = clamped ? 'show more' : 'show less';
+  }
+
+  function itemHtml(p, rank) {
+    var mine = Number(p.my_weight) || 0;
+    var scoreClass = mine > 0 ? ' is-up' : (mine < 0 ? ' is-down' : '');
+    var me = (state.session && state.session.me) || {};
+    // Nudging toward zero always refunds, so it stays available at zero budget.
+    var upBlocked = mine >= 0 && me.upvotes_left === 0;
+    var downBlocked = mine <= 0 && me.downvotes_left === 0;
+    var focus = String(p.technical_focus || '').split(/[;,|]/);
+    var tags = '';
+    for (var i = 0; i < focus.length; i++) {
+      var t = focus[i].trim();
+      if (t) tags += '<span class="rl-tag">' + esc(t) + '</span>';
+    }
+
+    var meta = [];
+    if (p.venue) meta.push('<span class="rl-venue">' + esc(p.venue) + '</span>');
+    if (p.year) meta.push(esc(p.year));
+    var ago = timeAgo(p.submitted_at);
+    if (ago) meta.push(ago);
+
+    var titleHtml = p.link
+      ? '<a href="' + esc(p.link) + '" target="_blank" rel="noopener">' + esc(p.title) + '</a>' +
+        '<span class="rl-domain">' + esc(domainOf(p.link)) + '</span>'
+      : esc(p.title);
+
+    var check = '';
+    if (p.read) {
+      var who = p.read_by ? ' by ' + esc(p.read_by) : '';
+      meta.push('<span class="rl-read-flag">read' + who + '</span>');
+      check = '<button type="button" class="rl-check is-on" data-id="' + esc(p.id) +
+              '" data-read="false" title="Move back to the list">' + CHECK_SVG + '</button>';
+    } else {
+      check = '<button type="button" class="rl-check" data-id="' + esc(p.id) +
+              '" data-read="true" title="Mark as read">' + CHECK_SVG + '</button>';
+    }
+
+    return '' +
+      '<li class="rl-item' + (p.read ? ' is-read' : '') + '" data-id="' + esc(p.id) + '">' +
+        '<div class="rl-rank">' + (rank == null ? '' : rank) + '</div>' +
+        '<div class="rl-votes">' +
+          arrowHtml('up', mine > 0, p.id, upBlocked) +
+          '<div class="rl-score' + scoreClass + '" data-score>' + p.score + '</div>' +
+          arrowHtml('down', mine < 0, p.id, downBlocked) +
+          (mine ? '<div class="rl-mine' + (mine > 0 ? ' is-up' : ' is-down') + '">' +
+                    (mine > 0 ? '+' + mine : String(mine)) + '</div>' : '') +
+        '</div>' +
+        '<div class="rl-body">' +
+          '<div class="rl-title">' + titleHtml + '</div>' +
+          '<div class="rl-meta">' + meta.join(' &middot; ') + '</div>' +
+          (p.summary
+            ? '<p class="rl-summary is-clamped">' + esc(p.summary) + '</p>' +
+              '<button type="button" class="rl-more" hidden>show more</button>'
+            : '') +
+          (tags ? '<div class="rl-focus">' + tags + '</div>' : '') +
+        '</div>' +
+        check +
+      '</li>';
+  }
+
+  var CHECK_SVG = '<svg viewBox="0 0 16 16" aria-hidden="true">' +
+    '<path d="M6.2 11.3 3 8.1l1.1-1.1 2.1 2.1 5.7-5.7L13 4.5z"/></svg>';
+
+  function arrowHtml(dir, on, id, blocked) {
+    var path = dir === 'up'
+      ? 'M8 2.5 14.5 10H10.8v3.6H5.2V10H1.5z'
+      : 'M8 13.5 1.5 6h3.7V2.4h5.6V6h3.7z';
+    var label = blocked
+      ? 'No ' + dir + 'votes left this week'
+      : 'Add ' + (dir === 'up' ? 'an upvote' : 'a downvote') + ' (you can stack several)';
+    return '<button type="button" class="rl-arrow rl-' + dir + (on ? ' is-on' : '') + '"' +
+           ' data-dir="' + dir + '" data-id="' + esc(id) + '"' +
+           (blocked ? ' disabled' : '') +
+           ' aria-label="' + dir + 'vote" title="' + label + '">' +
+           '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="' + path + '"/></svg></button>';
+  }
+
+  // Who added what stays in the Sheet. The page shows only this aggregate.
+  function renderTally() {
+    if (!el.tally) return;
+    var rows = state.contributors || [];
+    if (!rows.length) { el.tally.hidden = true; return; }
+
+    var total = 0;
+    var parts = [];
+    for (var i = 0; i < rows.length; i++) {
+      total += rows[i].count;
+      parts.push('<span class="rl-tally-item"><span class="rl-tally-name">' + esc(rows[i].name) +
+                 '</span><span class="rl-tally-count">' + rows[i].count + '</span></span>');
+    }
+    var span = state.contributorDays === 30 ? 'the past month'
+                                            : 'the past ' + state.contributorDays + ' days';
+    el.tally.innerHTML =
+      '<span class="rl-tally-label">' + total + (total === 1 ? ' paper' : ' papers') +
+      ' added in ' + span + '</span>' + parts.join('');
+    el.tally.hidden = false;
+  }
+
+  function renderAuth() {
+    if (!el.auth) return;
+    var s = state.session;
+    if (!s || !s.token) {
+      el.auth.innerHTML = '<button type="button" class="rl-btn" id="rl-login-btn">Lab member sign in</button>';
+      document.getElementById('rl-login-btn').addEventListener('click', function () { openLogin(); });
+      return;
+    }
+    var me = s.me || {};
+    var quota = '<span class="rl-quota">' +
+      '<span>&#9650; ' + num(me.upvotes_left) + '/' + num(me.upvotes_total, 3) + '</span>' +
+      '<span>&#9660; ' + num(me.downvotes_left) + '/' + num(me.downvotes_total, 3) + '</span>' +
+      '<span>submissions ' + num(me.submissions_left) + '/' + num(me.submissions_total, 10) + '</span>' +
+      '</span>';
+    el.auth.innerHTML =
+      '<div class="rl-status"><strong>' + esc(s.member) + '</strong><br>' + quota +
+      ' &middot; <button type="button" class="rl-btn-link" id="rl-logout">sign out</button></div>' +
+      '<button type="button" class="rl-btn rl-btn-solid" id="rl-add">Add paper</button>';
+    document.getElementById('rl-logout').addEventListener('click', signOut);
+    document.getElementById('rl-add').addEventListener('click', openSubmit);
+  }
+
+  function num(v, fallback) {
+    if (v === 0) return '0';
+    return v == null ? (fallback == null ? '?' : String(fallback)) : String(v);
+  }
+
+  /* ------------------------------ actions -------------------------------- */
+
+  function onSort(ev) {
+    var btn = ev.currentTarget;
+    state.sort = btn.getAttribute('data-sort');
+    for (var i = 0; i < el.sorts.length; i++) el.sorts[i].classList.remove('is-active');
+    btn.classList.add('is-active');
+    render();
+  }
+
+  function onSearch(ev) {
+    state.query = ev.target.value.trim();
+    render();
+  }
+
+  function onVote(ev) {
+    var btn = ev.currentTarget;
+    var id = btn.getAttribute('data-id');
+    var dir = btn.getAttribute('data-dir');
+
+    if (!state.session || !state.session.token) {
+      openLogin('Sign in with your lab passcode to vote.');
+      return;
+    }
+    if (state.busy[id]) return;
+    state.busy[id] = true;
+
+    apiPost({ action: 'vote', paper_id: id, direction: dir }, function (data) {
+      state.busy[id] = false;
+      if (!data || !data.ok) {
+        if (data && data.expired) { signOut(); openLogin('Your session expired. Sign in again.'); }
+        else notice((data && data.error) || 'Vote failed.', 'error');
+        if (data && data.me && state.session) { state.session.me = data.me; writeSession(state.session); renderAuth(); }
+        return;
+      }
+      clearNotice();
+      for (var i = 0; i < state.papers.length; i++) {
+        if (state.papers[i].id === data.paper_id) {
+          state.papers[i].up = data.up;
+          state.papers[i].down = data.down;
+          state.papers[i].score = data.score;
+          state.papers[i].my_weight = data.my_weight;
+          break;
+        }
+      }
+      if (data.me) { state.session.me = data.me; writeSession(state.session); }
+      renderAuth();
+      render();
+    });
+  }
+
+  function onMarkRead(ev) {
+    var btn = ev.currentTarget;
+    var id = btn.getAttribute('data-id');
+    var wantRead = btn.getAttribute('data-read') === 'true';
+
+    if (!state.session || !state.session.token) {
+      openLogin('Sign in with your lab passcode to mark papers read.');
+      return;
+    }
+    if (state.busy[id]) return;
+    state.busy[id] = true;
+    btn.disabled = true;
+
+    apiPost({ action: 'mark', paper_id: id, read: wantRead }, function (data) {
+      state.busy[id] = false;
+      if (!data || !data.ok) {
+        if (data && data.expired) { signOut(); openLogin('Your session expired. Sign in again.'); }
+        else notice((data && data.error) || 'Could not update that paper.', 'error');
+        btn.disabled = false;
+        return;
+      }
+      clearNotice();
+      for (var i = 0; i < state.papers.length; i++) {
+        if (state.papers[i].id === data.paper_id) {
+          state.papers[i].read = data.read;
+          state.papers[i].read_at = data.read_at;
+          state.papers[i].read_by = data.read_by;
+          break;
+        }
+      }
+      render();
+    });
+  }
+
+  function onLogin(ev) {
+    ev.preventDefault();
+    var name = document.getElementById('rl-login-name').value.trim();
+    var passcode = document.getElementById('rl-login-passcode').value;
+    if (!name || !passcode) { msg(el.loginMsg, 'Enter your name and passcode.', 'error'); return; }
+
+    var btn = document.getElementById('rl-login-submit');
+    btn.disabled = true;
+    msg(el.loginMsg, 'Checking…', '');
+
+    apiPost({ action: 'login', name: name, passcode: passcode }, function (data) {
+      btn.disabled = false;
+      if (!data || !data.ok) { msg(el.loginMsg, (data && data.error) || 'Sign in failed.', 'error'); return; }
+      state.session = { token: data.token, member: data.member, me: data.me };
+      writeSession(state.session);
+      msg(el.loginMsg, '', '');
+      el.loginForm.reset();
+      closeModal(el.loginModal);
+      renderAuth();
+      load();
+    });
+  }
+
+  function showDetails(focusTitle) {
+    if (el.details) el.details.hidden = false;
+    if (el.submitBtn) el.submitBtn.hidden = false;
+    if (el.manualBtn) el.manualBtn.hidden = true;
+    if (focusTitle) {
+      var t = document.getElementById('rl-f-title');
+      if (t) t.focus();
+    }
+  }
+
+  function onLookup() {
+    var link = el.link ? el.link.value.trim() : '';
+    if (!link) { msg(el.submitMsg, 'Paste a link first.', 'error'); el.link.focus(); return; }
+
+    el.lookupBtn.disabled = true;
+    var label = el.lookupBtn.textContent;
+    el.lookupBtn.textContent = 'Looking\u2026';
+    msg(el.submitMsg, '', '');
+
+    apiPost({ action: 'lookup', link: link }, function (data) {
+      el.lookupBtn.disabled = false;
+      el.lookupBtn.textContent = label;
+
+      if (!data || !data.ok) {
+        if (data && data.expired) {
+          signOut(); closeModal(el.submitModal); openLogin('Your session expired. Sign in again.');
+          return;
+        }
+        // A failed lookup is not a dead end: open the fields so it can be typed.
+        showDetails(true);
+        msg(el.submitMsg, (data && data.error) || 'Could not read that page. Fill the fields in by hand.', 'error');
+        return;
+      }
+
+      if (data.link) el.link.value = data.link;
+      setValue('rl-f-title', data.title);
+      setValue('rl-f-venue', data.venue);
+      setValue('rl-f-year', data.year);
+      setValue('rl-f-summary', data.abstract);
+      showDetails(!data.title);
+
+      var missing = [];
+      if (!data.title) missing.push('title');
+      if (!data.venue) missing.push('venue');
+      if (!data.year) missing.push('year');
+      if (!data.abstract) missing.push('abstract');
+      if (missing.length) {
+        msg(el.submitMsg, 'Found what it could' + (data.source ? ' via ' + data.source : '') +
+            '. Missing: ' + missing.join(', ') + '. Edit anything below before posting.', '');
+      } else {
+        msg(el.submitMsg, 'Filled in from ' + (data.source || 'the page') +
+            '. Check it over before posting.', 'ok');
+      }
+    });
+  }
+
+  function setValue(id, value) {
+    var node = document.getElementById(id);
+    if (node) node.value = value == null ? '' : value;
+  }
+
+  function onSubmit(ev) {
+    ev.preventDefault();
+    var payload = {
+      action: 'submit',
+      title: document.getElementById('rl-f-title').value.trim(),
+      link: document.getElementById('rl-f-link').value.trim(),
+      venue: document.getElementById('rl-f-venue').value.trim(),
+      year: document.getElementById('rl-f-year').value.trim(),
+      summary: document.getElementById('rl-f-summary').value.trim()
+    };
+    if (!payload.title) { msg(el.submitMsg, 'A title is required.', 'error'); return; }
+
+    var btn = document.getElementById('rl-submit-btn');
+    btn.disabled = true;
+    msg(el.submitMsg, 'Posting…', '');
+
+    apiPost(payload, function (data) {
+      btn.disabled = false;
+      if (!data || !data.ok) {
+        if (data && data.expired) { signOut(); closeModal(el.submitModal); openLogin('Your session expired. Sign in again.'); return; }
+        msg(el.submitMsg, (data && data.error) || 'Could not post the paper.', 'error');
+        if (data && data.me && state.session) { state.session.me = data.me; writeSession(state.session); renderAuth(); }
+        return;
+      }
+      if (data.me) { state.session.me = data.me; writeSession(state.session); }
+      el.submitForm.reset();
+      msg(el.submitMsg, '', '');
+      closeModal(el.submitModal);
+      renderAuth();
+      notice('Paper added to the list.', 'ok');
+      load();
+    });
+  }
+
+  function signOut() {
+    state.session = null;
+    try { localStorage.removeItem(STORE); } catch (e) { /* ignore */ }
+    for (var i = 0; i < state.papers.length; i++) state.papers[i].my_weight = 0;
+    renderAuth();
+    render();
+  }
+
+  /* ------------------------------ modals --------------------------------- */
+
+  function openLogin(message) {
+    if (!el.loginModal) return;
+    msg(el.loginMsg, message || '', message ? 'error' : '');
+    el.loginModal.hidden = false;
+    var f = document.getElementById('rl-login-name');
+    if (f) f.focus();
+  }
+
+  function openSubmit() {
+    if (!el.submitModal) return;
+    var me = (state.session && state.session.me) || {};
+    if (el.submitQuota) {
+      el.submitQuota.textContent = num(me.submissions_left) + ' of ' +
+        num(me.submissions_total, 10) + ' submissions left this week.';
+    }
+    msg(el.submitMsg, '', '');
+    if (el.submitForm) el.submitForm.reset();
+    if (el.details) el.details.hidden = true;
+    if (el.submitBtn) el.submitBtn.hidden = true;
+    if (el.manualBtn) el.manualBtn.hidden = false;
+    el.submitModal.hidden = false;
+    if (el.link) el.link.focus();
+  }
+
+  function closeModal(m) { if (m) m.hidden = true; }
+
+  /* ------------------------------ helpers -------------------------------- */
+
+  function notice(html, kind) {
+    if (!el.notice) return;
+    el.notice.innerHTML = html;
+    el.notice.className = 'rl-notice' + (kind ? ' is-' + kind : '');
+    el.notice.hidden = false;
+  }
+  function clearNotice() { if (el.notice) el.notice.hidden = true; }
+
+  function msg(node, text, kind) {
+    if (!node) return;
+    node.textContent = text;
+    node.className = 'rl-msg' + (kind ? ' is-' + kind : '');
+  }
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function domainOf(url) {
+    try {
+      var h = new URL(url).hostname.replace(/^www\./, '');
+      return h ? '(' + h + ')' : '';
+    } catch (e) { return ''; }
+  }
+
+  function timeAgo(iso) {
+    var t = Date.parse(iso || '');
+    if (isNaN(t)) return '';
+    var mins = Math.floor((Date.now() - t) / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return mins + ' min ago';
+    var hours = Math.floor(mins / 60);
+    if (hours < 24) return hours + (hours === 1 ? ' hour ago' : ' hours ago');
+    var days = Math.floor(hours / 24);
+    if (days < 7) return days + (days === 1 ? ' day ago' : ' days ago');
+    var weeks = Math.floor(days / 7);
+    if (weeks < 5) return weeks + (weeks === 1 ? ' week ago' : ' weeks ago');
+    var months = Math.floor(days / 30);
+    if (months < 12) return months + (months === 1 ? ' month ago' : ' months ago');
+    return Math.floor(days / 365) + 'y ago';
+  }
+
+  function readSession() {
+    try {
+      var raw = localStorage.getItem(STORE);
+      if (!raw) return null;
+      var s = JSON.parse(raw);
+      return s && s.token ? s : null;
+    } catch (e) { return null; }
+  }
+
+  function writeSession(s) {
+    try { localStorage.setItem(STORE, JSON.stringify(s)); } catch (e) { /* ignore */ }
+  }
+})();
+
+</script>
+</body>
+</html>
