@@ -201,11 +201,9 @@
   color: var(--global-text-color-light);
 }
 
-/* ---------- read / unread ---------- */
-.rl-check {
-  flex: 0 0 auto;
-  align-self: flex-start;
-  margin-top: 1px;
+/* ---------- read / archive ---------- */
+.rl-actions { flex: 0 0 auto; display: flex; gap: 6px; align-self: flex-start; margin-top: 1px; }
+.rl-state-btn {
   width: 26px;
   height: 26px;
   padding: 0;
@@ -216,44 +214,78 @@
   opacity: 0.55;
   cursor: pointer;
 }
-.rl-check svg { width: 15px; height: 15px; fill: currentColor; display: block; margin: 0 auto; }
-.rl-check:hover:not(:disabled) { opacity: 1; border-color: #00ab37; color: #00ab37; }
-.rl-check:disabled { cursor: default; opacity: 0.3; }
-.rl-check.is-on {
-  opacity: 1;
-  color: #fff;
-  background: #00ab37;
-  border-color: #00ab37;
-}
-.rl-check.is-on:hover { background: none; color: #00ab37; }
+.rl-state-btn svg { width: 14px; height: 14px; fill: currentColor; display: block; margin: 0 auto; }
+.rl-state-btn:disabled { cursor: default; opacity: 0.3; }
+.rl-read-btn:hover:not(:disabled) { opacity: 1; border-color: #00ab37; color: #00ab37; }
+.rl-archived-btn:hover:not(:disabled) { opacity: 1; border-color: #b7791f; color: #b7791f; }
+.rl-read-btn.is-on { opacity: 1; color: #fff; background: #00ab37; border-color: #00ab37; }
+.rl-archived-btn.is-on { opacity: 1; color: #fff; background: #b7791f; border-color: #b7791f; }
+.rl-state-btn.is-on:hover { background: none; }
+.rl-read-btn.is-on:hover { color: #00ab37; }
+.rl-archived-btn.is-on:hover { color: #b7791f; }
 
-.rl-item.is-read .rl-title a { color: var(--global-text-color-light); }
-.rl-item.is-read .rl-summary,
-.rl-item.is-read .rl-focus { opacity: 0.75; }
-.rl-read-flag {
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 0.65rem;
-  font-weight: 600;
-  color: #00ab37;
-}
+.rl-item.is-read .rl-title a, .rl-item.is-archived .rl-title a { color: var(--global-text-color-light); }
+.rl-item.is-read .rl-summary, .rl-item.is-read .rl-focus,
+.rl-item.is-archived .rl-summary, .rl-item.is-archived .rl-focus { opacity: 0.75; }
+.rl-state-flag { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.65rem; font-weight: 600; }
+.rl-state-flag.is-read { color: #00ab37; }
+.rl-state-flag.is-archived { color: #b7791f; }
 
 .rl-section { padding: 16px 0 4px; border-top: 1px solid var(--global-divider-color); }
-.rl-section:first-child { border-top: none; }
 .rl-section-toggle {
-  border: none;
-  background: none;
-  padding: 0;
-  font-family: inherit;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  color: var(--global-text-color-light);
-  cursor: pointer;
+  border: none; background: none; padding: 0; font-family: inherit;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.03em;
+  color: var(--global-text-color-light); cursor: pointer;
 }
 .rl-section-toggle:hover { color: var(--global-theme-color); }
 .rl-caret { display: inline-block; transition: transform 0.15s ease; }
 .rl-caret.is-open { transform: rotate(90deg); }
+
+/* ---------- admin ---------- */
+.rl-modal-card.is-wide { max-width: 760px; }
+.rl-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--global-divider-color); margin: 6px 0 12px; }
+.rl-tab {
+  font-family: inherit; font-size: 0.82rem; font-weight: 600;
+  padding: 7px 12px; border: none; border-bottom: 2px solid transparent; margin-bottom: -1px;
+  background: none; color: var(--global-text-color-light); cursor: pointer;
+}
+.rl-tab.is-active { color: var(--global-theme-color); border-bottom-color: var(--global-theme-color); }
+#rl-admin-msg { margin: 0 0 8px; }
+.rl-tabpanel { font-size: 0.85rem; }
+.rl-tabpanel p { margin: 0 0 10px; }
+.rl-admin-h { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--global-text-color-light); margin: 20px 0 8px; }
+.rl-muted { font-size: 0.78rem; color: var(--global-text-color-light); }
+.rl-admin-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+.rl-admin-table th { text-align: left; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--global-text-color-light); padding: 0 8px 6px 0; }
+.rl-admin-table td { padding: 7px 8px 7px 0; border-top: 1px solid var(--global-divider-color); vertical-align: middle; }
+.rl-cell-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; }
+.rl-cell-actions .rl-btn-link { font-size: 0.78rem; }
+.rl-badge {
+  display: inline-block; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.03em;
+  padding: 1px 7px; border-radius: 999px; border: 1px solid var(--global-divider-color);
+  color: var(--global-text-color-light); vertical-align: middle;
+}
+.rl-badge.is-ok { color: #00ab37; border-color: rgba(0, 171, 55, 0.4); }
+.rl-badge.is-warn { color: #b7791f; border-color: rgba(183, 121, 31, 0.45); }
+.rl-badge.is-off { color: #ff3636; border-color: rgba(255, 54, 54, 0.4); }
+.rl-inline { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.rl-inline input[type="text"], .rl-inline input[type="url"] {
+  flex: 1 1 150px; min-width: 0; font-family: inherit; font-size: 0.84rem; padding: 5px 9px;
+  border: 1px solid var(--global-divider-color); border-radius: 6px;
+  background: var(--global-bg-color); color: var(--global-text-color);
+}
+.rl-inline input:focus { outline: none; border-color: var(--global-theme-color); }
+.rl-check-label { font-size: 0.8rem; color: var(--global-text-color-light); display: inline-flex; align-items: center; gap: 4px; }
+.rl-btn-sm { font-size: 0.75rem; padding: 4px 11px; }
+.rl-admin-papers { list-style: none; padding: 0; margin: 0; }
+.rl-admin-paper { padding: 10px 0; border-top: 1px solid var(--global-divider-color); }
+.rl-admin-paper.is-hidden .rl-admin-paper-title { opacity: 0.55; }
+.rl-admin-paper-title { font-weight: 500; }
+.rl-admin-paper .rl-cell-actions { justify-content: flex-start; margin-top: 3px; }
+.rl-digest {
+  white-space: pre-wrap; font-size: 0.78rem; line-height: 1.5; padding: 10px 12px; margin-top: 10px;
+  border: 1px solid var(--global-divider-color); border-radius: 6px; background: var(--global-code-bg-color, rgba(0,0,0,0.03));
+}
 
 .rl-empty, .rl-loading {
   padding: 32px 0;

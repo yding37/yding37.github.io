@@ -1,0 +1,183 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >-
+  Lab paper reading list. DynamoDB table, a Lambda behind a public Function URL,
+  and a Friday schedule that posts the Slack digest. Sized to stay inside the AWS
+  always-free allowances (DynamoDB 25 RCU/25 WCU provisioned, Lambda 1M requests,
+  EventBridge Scheduler 14M invocations per month).
+
+Parameters:
+  AllowedOrigins:
+    Type: CommaDelimitedList
+    Default: https://yding37.github.io,http://localhost:4000,http://127.0.0.1:4000
+    Description: Sites allowed to call the API from a browser. The localhost entries are for `jekyll serve`.
+  PageUrl:
+    Type: String
+    Default: https://yding37.github.io/reading-list/
+    Description: Linked from the Slack digest.
+  ReadCapacity:
+    Type: Number
+    Default: 15
+    Description: Provisioned read units. The always-free allowance is 25 across all tables in the region.
+  WriteCapacity:
+    Type: Number
+    Default: 10
+    Description: Provisioned write units. The always-free allowance is 25 across all tables in the region.
+
+Resources:
+  Table:
+    Type: AWS::DynamoDB::Table
+    # Keep the data if the stack is ever deleted or the table replaced.
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      TableName: !Ref AWS::StackName
+      # Provisioned, not on-demand: only provisioned capacity is covered by the
+      # always-free allowance.
+      BillingMode: PROVISIONED
+      ProvisionedThroughput:
+        ReadCapacityUnits: !Ref ReadCapacity
+        WriteCapacityUnits: !Ref WriteCapacity
+      AttributeDefinitions:
+        - { AttributeName: pk, AttributeType: S }
+        - { AttributeName: sk, AttributeType: S }
+      KeySchema:
+        - { AttributeName: pk, KeyType: HASH }
+        - { AttributeName: sk, KeyType: RANGE }
+      # Weekly vote rows and sign-in counters expire. Reads never look at a past
+      # week, so this is cleanup rather than logic.
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
+
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${AWS::StackName}
+      RetentionInDays: 14
+
+  FunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: { Service: lambda.amazonaws.com }
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: table-and-logs
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:GetItem
+                  - dynamodb:PutItem
+                  - dynamodb:UpdateItem
+                  - dynamodb:DeleteItem
+                  - dynamodb:Query
+                  - dynamodb:BatchWriteItem
+                  - dynamodb:ConditionCheckItem
+                Resource: !GetAtt Table.Arn
+              - Effect: Allow
+                Action: [logs:CreateLogStream, logs:PutLogEvents]
+                Resource: !Sub ${LogGroup.Arn}:*
+
+  Function:
+    Type: AWS::Lambda::Function
+    DependsOn: LogGroup
+    Properties:
+      FunctionName: !Ref AWS::StackName
+      Runtime: nodejs22.x          # ships the AWS SDK v3, so the upload is just our own files
+      Architectures: [arm64]
+      Handler: index.handler
+      MemorySize: 256
+      Timeout: 20                  # link lookup calls outside services
+      Role: !GetAtt FunctionRole.Arn
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref Table
+          PAGE_URL: !Ref PageUrl
+          TIMEZONE: America/New_York
+      # Placeholder. deploy.sh uploads the real code straight after the stack settles.
+      Code:
+        ZipFile: |
+          exports.handler = async () => ({
+            statusCode: 503,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ok: false, error: 'Code not uploaded yet. Run deploy.sh.' }),
+          });
+
+  FunctionUrl:
+    Type: AWS::Lambda::Url
+    Properties:
+      TargetFunctionArn: !Ref Function
+      AuthType: NONE               # the app authenticates members itself
+      # CORS headers come from here. The function must not add its own, or browsers
+      # see duplicates and reject the response.
+      Cors:
+        AllowOrigins: !Ref AllowedOrigins
+        AllowMethods: [GET, POST]
+        AllowHeaders: [content-type]
+        MaxAge: 3600
+
+  # Since October 2025 a public Function URL needs two grants.
+  UrlInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref Function
+      Action: lambda:InvokeFunctionUrl
+      Principal: '*'
+      FunctionUrlAuthType: NONE
+
+  # The second grant is limited to calls that arrive through the URL. Without the
+  # condition, anyone could invoke the function directly, and direct invocation is
+  # what gates import and member recovery.
+  UrlFunctionPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref Function
+      Action: lambda:InvokeFunction
+      Principal: '*'
+      InvokedViaFunctionUrl: true
+
+  SchedulerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: { Service: scheduler.amazonaws.com }
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: invoke-digest
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: lambda:InvokeFunction
+                Resource: !GetAtt Function.Arn
+
+  FridayDigest:
+    Type: AWS::Scheduler::Schedule
+    Properties:
+      Name: !Sub ${AWS::StackName}-friday-digest
+      Description: Weekly reading-list summary to #papers
+      ScheduleExpression: cron(0 9 ? * FRI *)
+      ScheduleExpressionTimezone: America/New_York
+      FlexibleTimeWindow: { Mode: 'OFF' }
+      Target:
+        Arn: !GetAtt Function.Arn
+        RoleArn: !GetAtt SchedulerRole.Arn
+        Input: '{"action":"digest"}'
+        RetryPolicy: { MaximumRetryAttempts: 2 }
+
+Outputs:
+  ApiUrl:
+    Description: Put this in _config.yml as reading_list_api (deploy.sh does it for you).
+    Value: !GetAtt FunctionUrl.FunctionUrl
+  FunctionName:
+    Value: !Ref Function
+  TableName:
+    Value: !Ref Table

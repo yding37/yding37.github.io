@@ -1,0 +1,4 @@
+# The Sheet export holds passcode hashes. Never commit it.
+migration/
+node_modules/
+*.zip

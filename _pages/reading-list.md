@@ -2,7 +2,7 @@
 layout: page
 permalink: /reading-list/
 title: Reading List
-description: Papers the lab is reading, ranked by lab votes. Anyone can browse; lab members sign in to vote and to add papers.
+description: Papers the lab is reading, ranked by lab votes. Anyone can browse; lab members sign in to vote, add papers, and mark them read or archived.
 nav: true
 nav_order: 2
 ---
@@ -102,6 +102,25 @@ nav_order: 2
       </div>
       <div class="rl-msg" id="rl-submit-msg"></div>
     </form>
+  </div>
+</div>
+
+<!-- Admin (only opened for admins; every action is re-checked on the server) -->
+<div class="rl-modal" id="rl-admin-modal" role="dialog" aria-modal="true" aria-labelledby="rl-admin-title" hidden>
+  <div class="rl-modal-card is-wide">
+    <div class="rl-modal-head">
+      <h3 id="rl-admin-title">Admin</h3>
+      <button type="button" class="rl-close" data-rl-close="rl-admin-modal" aria-label="Close">&times;</button>
+    </div>
+    <div class="rl-tabs" role="tablist">
+      <button type="button" class="rl-tab is-active" data-tab="members" role="tab" aria-selected="true">Members</button>
+      <button type="button" class="rl-tab" data-tab="papers" role="tab" aria-selected="false">Papers</button>
+      <button type="button" class="rl-tab" data-tab="slack" role="tab" aria-selected="false">Slack</button>
+    </div>
+    <div class="rl-msg" id="rl-admin-msg"></div>
+    <div class="rl-tabpanel" id="rl-admin-members"></div>
+    <div class="rl-tabpanel" id="rl-admin-papers" hidden></div>
+    <div class="rl-tabpanel" id="rl-admin-slack" hidden></div>
   </div>
 </div>
 

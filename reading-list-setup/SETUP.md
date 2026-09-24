@@ -1,3 +1,7 @@
+> **Retired, September 2026.** The reading list now runs on AWS (Lambda + DynamoDB).
+> See `../reading-list-backend/README.md`. This folder is kept for reference only; the
+> Apps Script deployment should be archived once the new backend is live.
+
 # Reading list — setup
 
 The page at `/reading-list/` is static. Papers and votes live in a Google Sheet,

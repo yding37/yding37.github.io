@@ -1,0 +1,14 @@
+{
+  "name": "reading-list-backend",
+  "private": true,
+  "type": "module",
+  "description": "Lambda + DynamoDB backend for the lab reading list. The Lambda runtime provides the AWS SDK; these packages are only for running the tests locally.",
+  "scripts": {
+    "test": "DDB_ENDPOINT=${DDB_ENDPOINT:-http://127.0.0.1:8765} node test/run-tests.mjs",
+    "serve": "DDB_ENDPOINT=${DDB_ENDPOINT:-http://127.0.0.1:8765} node test/local-server.mjs"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-dynamodb": "^3",
+    "@aws-sdk/lib-dynamodb": "^3"
+  }
+}
