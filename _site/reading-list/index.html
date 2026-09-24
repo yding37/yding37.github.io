@@ -12,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Reading List | Yi Ding</title>
     <meta name="author" content="Yi  Ding">
-    <meta name="description" content="Papers the lab is reading, ranked by lab votes. Anyone can browse; lab members sign in to vote and to add papers.">
+    <meta name="description" content="Papers the lab is reading, ranked by lab votes. Anyone can browse; lab members sign in to vote, add papers, and mark them read or archived.">
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website">
 
 
@@ -106,7 +106,7 @@
 
           <header class="post-header">
             <h1 class="post-title">Reading List</h1>
-            <p class="post-description">Papers the lab is reading, ranked by lab votes. Anyone can browse; lab members sign in to vote and to add papers.</p>
+            <p class="post-description">Papers the lab is reading, ranked by lab votes. Anyone can browse; lab members sign in to vote, add papers, and mark them read or archived.</p>
           </header>
 
           <article>
@@ -208,8 +208,27 @@
   </div>
 </div>
 
+<!-- Admin (only opened for admins; every action is re-checked on the server) -->
+<div class="rl-modal" id="rl-admin-modal" role="dialog" aria-modal="true" aria-labelledby="rl-admin-title" hidden="">
+  <div class="rl-modal-card is-wide">
+    <div class="rl-modal-head">
+      <h3 id="rl-admin-title">Admin</h3>
+      <button type="button" class="rl-close" data-rl-close="rl-admin-modal" aria-label="Close">×</button>
+    </div>
+    <div class="rl-tabs" role="tablist">
+      <button type="button" class="rl-tab is-active" data-tab="members" role="tab" aria-selected="true">Members</button>
+      <button type="button" class="rl-tab" data-tab="papers" role="tab" aria-selected="false">Papers</button>
+      <button type="button" class="rl-tab" data-tab="slack" role="tab" aria-selected="false">Slack</button>
+    </div>
+    <div class="rl-msg" id="rl-admin-msg"></div>
+    <div class="rl-tabpanel" id="rl-admin-members"></div>
+    <div class="rl-tabpanel" id="rl-admin-papers" hidden=""></div>
+    <div class="rl-tabpanel" id="rl-admin-slack" hidden=""></div>
+  </div>
+</div>
+
 <script>
-  window.READING_LIST_CONFIG = { api: "https://script.google.com/macros/s/AKfycbxNhea8t0sNFyLZuWmRmo2Co7ojvtYssdnfH5ADB8_dkvdGQIRj8oARYzWHIZRwUSDl/exec" };
+  window.READING_LIST_CONFIG = { api: "https://chobeaawytlly7izb6jatylbpm0kflqs.lambda-url.us-east-1.on.aws/" };
 </script>
 
 <script src="/assets/js/reading-list.js"></script>
